@@ -1,0 +1,49 @@
+{
+	"security.workspace.trust.untrustedFiles": "open",
+	"editor.minimap.enabled": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"workbench.editor.enablePreview": false,
+	"liveServer.settings.donotVerifyTags": true,
+
+	//【Prettier】
+	//使用Prettier排版
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	//針對特定文件，設定Prettier為格式化程序的優先工具
+	"[html,javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//在jsx使用單引號而不是雙引號
+	"prettier.jsxSingleQuote": true,
+	//設定代碼最佳長度，超過則執行換行
+	"prettier.printWidth": 120,
+	//縮排空兩格
+	"prettier.tabWidth": 4,
+	//結束時加分號
+	"prettier.semi": true,
+	"editor.hover.enabled": false,
+	"files.defaultLanguage": "html",
+	//儲存時自動格式化
+	"editor.formatOnPaste": true,
+	"editor.wordWrap": "on",
+	"prettier.useTabs": true,
+	"editor.guides.bracketPairs": true,
+	"window.menuBarVisibility": "compact",
+	"terminal.explorerKind": "external",
+	"terminal.integrated.defaultProfile.windows": "Git Bash",
+
+	// emmet tab 自動展開
+	"emmet.triggerExpansionOnTab": true,
+
+	// template 展開(快速使用HTML標籤)
+	"emmet.includeLanguages": {
+		"javascript": "javascriptreact",
+		"vue-html": "html",
+		"plaintext": "jade",
+		"ejs": "html"
+	},
+	// 型別檢查
+	"js/ts.implicitProjectConfig.checkJs": true,
+	"javascript.validate.enable": false,
+	"window.zoomLevel": 1.5,
+	"git.path": "C:/Program Files/Git/cmd/git.exe"
+}

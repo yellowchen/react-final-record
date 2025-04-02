@@ -1,0 +1,191 @@
+//Roboto Slab
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+//Roboto
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+//Lato
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+//Limelight
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+
+//Noto Serif
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+
+//Noto Sans TC
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: 'Noto Serif', "Noto Sans TC";
+    font-size: $fs-m;  //16px
+    font-weight: $fw-bold;
+    
+}
+
+body {
+    line-height: $lh-base;
+    background-color: #eee;
+    
+}
+
+//footer置底設定
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.nav {
+    flex: 0 0 auto;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex: 0 0 auto;
+}
+//footer置底設定
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    // vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    // color: #000;
+}
+
+
+//btn
+.btn {
+    cursor: pointer;
+    padding: .5rem;
+    border: #fff;
+    border-radius: 5px;
+    margin-top: 0;
+    font-size: $fs-m;
+    text-align: center;
+    //自行調整寬度
+    width: 0;
+    flex: auto;
+    @include media-xs {
+        font-size: $fs-mobile;  //14px
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #8bb4e8;
+    &:hover {
+        background-color: $blue-0;
+    }
+    a {
+        color: #fff;
+    }   
+}
+
+.btn-red {
+    color: #fff;
+    background-color: #f2a4a2;
+    &:hover {
+        background-color: #e34b54;
+    }
+    a {
+        color: #fff;
+    }
+}
+
+.btn-dark {
+    background-color: #000;
+}
+
+.btn-light {
+    background-color: #fff;
+}
+
+//title
+.title {
+    text-transform: capitalize;
+}
+
+.title-form {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    &::before, &::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        align-self: center;
+        //線條背景顏色修改
+        background-color: #aaa;
+    }
+}
+
+//letter
+h1 {
+    font-size: $fs-h1; //60px
+    @include media-xs {
+        font-size: $fs-h3;  //32px
+    }
+}
+
+h2 {
+    font-size: $fs-h2; //48px
+    @include media-xs {
+        font-size: $fs-h4;  //24px
+    }
+}
+
+h3 {
+    font-size: $fs-h3; //32px
+    @include media-xs {
+        font-size: $fs-h5;  //20px
+    }
+}
+
+h4 {
+    font-size: $fs-h4; //24px
+    @include media-xs {
+        font-size: $fs-h6;  //18px
+    }
+}
+
+h5 {
+    font-size: $fs-h5; //20px
+    @include media-xs {
+        font-size: $fs-mobile;  //14px
+    }
+}
+
+h6 {
+    font-size: $fs-h6; //18px
+    @include media-xs {
+        font-size: $fs-mobile;  //14px
+    }
+}
+
+small {
+    font-size: $fs-sm; //12px
+}
+
+
+//border
+.border-gray {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}

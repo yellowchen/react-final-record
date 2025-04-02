@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"module": "es6",
+		"moduleResolution": "node",
+		"baseUrl": ".",
+		"checkJs": true,
+		"jsx": "react",
+		"resolveJsonModule": true
+	},
+	"exclude": ["node_modules", "**/node_modules/*"]
+}
