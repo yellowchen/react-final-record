@@ -1,0 +1,112 @@
+// 【ICONS】
+// https://fontawesome.com/v4/icons/
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+//FB <i class="fa fa-facebook-square" aria-hidden="true"></i>
+//TW <i class="fa fa-twitter" aria-hidden="true"></i>
+//IG <i class="fa fa-instagram" aria-hidden="true"></i>
+//YT <i class="fa fa-youtube" aria-hidden="true"></i>
+//mail <i class="fa fa-envelope-o" aria-hidden="true"></i>
+
+
+
+//【COLOR】
+$primary: #185aaf; 
+$secondary: #FF5D50;
+$success: #006030;
+
+$black: #000; 
+$white: #fff;
+$gray-a: #aaa;
+$gray-c: #ccc;
+$gray-e: #eee;
+
+$red:#ff0000;
+$orange:#FF5809;
+$yellow:#ffff00;
+$green:#008000;
+$blue:#0000ff;
+$blue-0: #185aaf;
+$cyan: #00FFFF;
+$purple:#800080;
+
+
+
+//【BACKGROUND-COLOR】
+$theme: linear-gradient(to right, #b1939d 0%,#a27f9d 25%,#797ab0 50%,#607fb6 75%,#5787af 100%);
+
+$bg_b-g: linear-gradient(0deg, #185a9d, #43cea2);
+$bg_r-b: linear-gradient(35deg, #CCFFFF,#FFCCCC);
+$bg_r-r: linear-gradient(0deg, #cc4380, #fb6c75);
+$bg_r-w: linear-gradient(-45deg, #fffaf0, #f8c3c1);
+
+
+
+//【SHADOW】
+//01 Box-Shadow
+// $shadow-sm: ;
+$shadow: 2px 2px 6px $gray-a; 
+// $shadow-lg: ;
+
+
+//02 Text-Shadow
+$ts-a: 0 0 12px #ccc;
+
+
+
+//【font】
+//01 font-style
+
+//02 font-variant
+
+//03 font-weight
+$fw-light: 300;
+$fw-normal: 400; 
+$fw-bold: 700;
+$fw-bolder: 900;
+
+
+//04 font-size
+$font-size-base: 4px; 
+
+$fs-h1: $font-size-base * 15; //60px
+$fs-h2: $font-size-base * 12; //48px 
+$fs-h3: $font-size-base * 8 ; //32px 
+$fs-h4: $font-size-base * 6 ; //24px 
+$fs-h5: $font-size-base * 5; //20px 
+$fs-m: $font-size-base * 4; //16px(預設)
+$fs-h6: $font-size-base * 4.5 ; //18px
+$fs-mobile: $font-size-base * 3.5; //14px
+$fs-sm: $font-size-base * 3; //12px
+
+
+//05 line-height
+$lh-1: 1;
+$lh-sm: 1.25;
+$lh-base: 1.5;
+$lh-md: 1.75;
+$lh-lg: 2;
+
+
+//06 font-family
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" 
+; 
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default; 
+
+
+
+//【Margin】
+$mb-l: 2rem;
+$mb-m: 1rem;
+$mb-s: .5rem;
+
+
+
+//【Media Query】
+$media-xxs: 360px;
+$media-xs: 430px;
+$media-sm: 576px;
+$media-md: 768px;
+$media-lg: 992px;
+$media-xl: 1200px;
+$media-xxl: 1400px;

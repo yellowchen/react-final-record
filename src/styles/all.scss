@@ -1,10 +1,8 @@
-@import '~bootstrap/scss/bootstrap';
-@import "_reset.scss";
-@import "_variables.scss";
-@import "_mixin.scss";
-@import "_base.scss";
-@import "_layout.scss";
-@import "_function.scss";
+@import "bootstrap/scss/functions";
+@import "_variables";
+@import 'bootstrap/scss/bootstrap';
+@import "bootstrap-icons/font/bootstrap-icons.scss";
+@import "_utilities.scss";
 
 //component
 

@@ -45,5 +45,7 @@
 	"js/ts.implicitProjectConfig.checkJs": true,
 	"javascript.validate.enable": false,
 	"window.zoomLevel": 1.5,
-	"git.path": "C:/Program Files/Git/cmd/git.exe"
+	"git.path": "C:/Program Files/Git/cmd/git.exe",
+	"html.format.wrapAttributes": "force-expand-multiline",
+	
 }
