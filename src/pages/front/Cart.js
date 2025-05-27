@@ -3,7 +3,7 @@ import { useOutletContext, Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from "../../slice/messageSlice";
-
+import { thousandFormat } from "../../store";
 
 
 const Cart = () => {
@@ -120,7 +120,7 @@ const Cart = () => {
 													))}
 												</select>
 											</div>
-											<p className='mb-0 ms-auto'>NT$ {item.total}</p>
+											<p className='mb-0 ms-auto'>NT$ {thousandFormat(item.total)}</p>
 										</div>
 									</div>
 								</div>
@@ -130,7 +130,7 @@ const Cart = () => {
 
 							<div className='d-flex justify-content-between mt-4'>
 								<p className='mb-0 h4 fw-bold'>Total</p>
-								<p className='mb-0 h4 fw-bold'>NT$ {final_total}</p>
+								<p className='mb-0 h4 fw-bold'>NT$ {thousandFormat(final_total)}</p>
 							</div>
 							<Link to='/checkout' className='btn btn-dark w-100 mt-4 rounded-0 py-3'>
 								Fill File

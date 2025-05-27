@@ -47,11 +47,6 @@ const Navbar = ({cartData}) => {
 									Product
 								</NavLink>
 							</li>
-							<li className='nav-item active'>
-								<NavLink className='nav-link' to='/products'>
-									Product
-								</NavLink>
-							</li>
 						</ul>
 					</div>
 

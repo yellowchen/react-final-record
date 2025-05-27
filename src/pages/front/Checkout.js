@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 // import { Input } from "../../components/FormElement";
 import axios from "axios";
 import { useOutletContext, Link, useNavigate } from 'react-router-dom';
-
+import { thousandFormat } from "../../store";
 
 const Checkout = () => {
     
@@ -104,7 +104,7 @@ const Checkout = () => {
 							<h4 className='fw-bold'>Contact information</h4>
 
 							{inputRules.map(({ id, labelText, type, rules }) => (
-								<div className="mb-2" key={id}>
+								<div className='mb-2' key={id}>
 									<label htmlFor={id} className='form-label'>
 										{labelText}
 									</label>
@@ -238,11 +238,11 @@ const Checkout = () => {
 						<div className='border p-4 mb-4'>
 							<h4 className='mb-4'>Order Detail</h4>
 							{cartData?.carts?.map((item) => (
-								<div className='d-flex' key={item.product.id}>
+								<div className='d-flex mb-2' key={item.product.id}>
 									<img
 										src={item.product.imageUrl}
 										alt={item.product.title}
-										className='me-2'
+										className='me-1'
 										style={{ width: "48px", height: "48px", objectFit: "cover" }}
 									/>
 									<div className='w-100'>
@@ -252,9 +252,9 @@ const Checkout = () => {
 										</div>
 										<div className='d-flex justify-content-between'>
 											<p className='text-muted mb-0'>
-												<small>NT$ {item.product.price}</small>
+												<small>NT$ {thousandFormat(item.product.price)}</small>
 											</p>
-											<p className='mb-0'>{item.final_total}</p>
+											<p className='mb-0'>{thousandFormat(item.final_total)}</p>
 										</div>
 									</div>
 								</div>
@@ -265,7 +265,9 @@ const Checkout = () => {
 										<th scope='row' className='border-0 px-0 pt-4 font-weight-normal'>
 											Subtotal
 										</th>
-										<td className='text-end border-0 px-0 pt-4'>NT$ {cartData?.total}</td>
+										<td className='text-end border-0 px-0 pt-4'>
+											NT$ {thousandFormat(cartData?.total)}
+										</td>
 									</tr>
 									<tr>
 										<th scope='row' className='border-0 px-0 pt-0 pb-4 font-weight-normal'>
@@ -277,7 +279,7 @@ const Checkout = () => {
 							</table>
 							<div className='d-flex justify-content-between mt-4'>
 								<p className='mb-0 h4 fw-bold'>Total</p>
-								<p className='mb-0 h4 fw-bold'>NT$ {cartData?.final_total}</p>
+								<p className='mb-0 h4 fw-bold'>NT$ {thousandFormat(cartData?.final_total)}</p>
 							</div>
 						</div>
 					</div>
