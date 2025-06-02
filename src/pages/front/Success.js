@@ -2,6 +2,7 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { thousandFormat } from "../../store";
 
 
 const Success = () => {
@@ -29,6 +30,7 @@ const Success = () => {
     }, [])
 
     console.log("orderData: ", orderData);
+    
     console.log("Array orderData: ", Object.values(orderData.products || {}));
     //Object.values()，裡面要放物件，而在Ajax完成前，orderData的products可能是undefined，所以要補上{}空物件
     //Object.values()，是取物件中key的value值 
@@ -83,9 +85,9 @@ const Success = () => {
 													</div>
 													<div className='d-flex justify-content-between mt-auto'>
 														<p className='text-muted mb-0'>
-															<small>NT$ {item.product.price}</small>
+															<small>NT$ {thousandFormat(item.product.price)}</small>
 														</p>
-														<p className='mb-0'>NT$ {item.final_total}</p>
+														<p className='mb-0'>NT$ {thousandFormat(item.final_total)}</p>
 													</div>
 												</div>
 											</div>
@@ -98,7 +100,9 @@ const Success = () => {
 													<th scope='row' className='border-0 px-0 font-weight-normal'>
 														subTotal
 													</th>
-													<td className='text-end border-0 px-0'>NT$ {orderData.total}</td>
+													<td className='text-end border-0 px-0'>
+														NT$ {thousandFormat(orderData.total)}
+													</td>
 												</tr>
 												<tr>
 													<th scope='row' className='border-0 px-0 pt-0 font-weight-normal'>
@@ -111,7 +115,7 @@ const Success = () => {
 
 										<div className='d-flex justify-content-between mt-2'>
 											<p className='mb-0 h4 fw-bold'>Total</p>
-											<p className='mb-0 h4 fw-bold'>NT$ {orderData.total}</p>
+											<p className='mb-0 h4 fw-bold'>NT$ {thousandFormat(orderData.total)}</p>
 										</div>
 									</li>
 								</ul>

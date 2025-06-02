@@ -1,13 +1,15 @@
-
+import { useState } from 'react';
 import { useForm } from "react-hook-form";
 // import { Input } from "../../components/FormElement";
 import axios from "axios";
 import { useOutletContext, Link, useNavigate } from 'react-router-dom';
 import { thousandFormat } from "../../store";
 
+
 const Checkout = () => {
-    
+    const [select, setSelect] = useState("");
     const {cartData} = useOutletContext();
+    console.log(cartData);
     const navigate = useNavigate();
 	const api = `/v2/api/${process.env.REACT_APP_API_PATH}`;
 	const {
@@ -42,6 +44,12 @@ const Checkout = () => {
 			console.log(err);
 		}
 	};
+
+    const handleSelected = (e) => {
+        setSelect(e.target.value)
+    }
+
+    console.log("select: ", select);
 
     const inputRules = [
 		{
@@ -87,9 +95,39 @@ const Checkout = () => {
 		{
 			id: "address",
 			labelText: "Address",
-			type: "address",
+			type: "text",
 			rules: {
 				required: "地址為必填",
+			},
+		},
+	];
+
+    const checkRules = [
+		{
+			id: "gridRadios1",
+			name: "gridRadio",
+			value: "WebATM",
+			labelText: "WebATM",
+			rules: {
+				required: true,
+			},
+		},
+		{
+			id: "gridRadios2",
+			name: "gridRadio",
+			value: "ATM",
+			labelText: "ATM",
+			rules: {
+				required: true,
+			},
+		},
+		{
+			id: "gridRadios3",
+			name: "gridRadio",
+			value: "ApplePay",
+			labelText: "ApplePay",
+			rules: {
+				required: true,
 			},
 		},
 	];
@@ -118,74 +156,31 @@ const Checkout = () => {
 								</div>
 							))}
 
-							{/* <div className='mb-2'>
-								<Input
-									id='email'
-									labelText='Email'
-									type='email'
-									errors={errors}
-									register={register}
-									rules={{
-										required: "Email 為必填",
-										pattern: {
-											value: /^\S+@\S+$/i,
-											message: "Email 格式不正確",
-										},
-									}}
-								/>
-							</div>
-							<div className='mb-2'>
-								<Input
-									id='name'
-									type='text'
-									errors={errors}
-									labelText='Username'
-									register={register}
-									rules={{
-										required: "使用者名稱為必填",
-										maxLength: {
-											value: 10,
-											message: "使用者名稱長度不超過 10",
-										},
-									}}
-								></Input>
-							</div>
-							<div className='mb-2'>
-								<Input
-									id='tel'
-									labelText='Tel'
-									type='tel'
-									errors={errors}
-									register={register}
-									rules={{
-										required: "電話為必填",
-										minLength: {
-											value: 6,
-											message: "電話不少於 6 碼",
-										},
-										maxLength: {
-											value: 12,
-											message: "電話不超過 12 碼",
-										},
-									}}
-								></Input>
-							</div>
-							<div className='mb-2'>
-								<Input
-									id='address'
-									labelText='Address'
-									type='address'
-									errors={errors}
-									register={register}
-									rules={{
-										required: "地址為必填",
-									}}
-								></Input>
-							</div> */}
-
 							<div className='mb-2'>
 								<p className='mt-4'>Payment</p>
-								<div className='form-check mb-2'>
+                                {/* react-hook-form use in radio */}
+								{checkRules.map(({id, name, value, labelText, rules}) => (
+									<div className='form-check mb-2' key={id}>
+										<input
+											className={`form-check-input ${errors[name] && "is-invalid"}`}
+											type= "radio"
+											name= {name}
+											id={id}
+											value={value}
+											{...register(name, rules)}
+                                            onClick={(e) => handleSelected(e)}
+										/>
+										{/* Radio 使用 Name 欄位 */}
+										<label className='form-check-label' htmlFor={id}>
+											{labelText}
+										</label>
+										{errors[name] && (
+											<div className='invalid-feedback'>{errors[name]?.message}</div>
+										)}
+									</div>
+								))}
+
+								{/* <div className='form-check mb-2'>
 									<input
 										className='form-check-input'
 										type='radio'
@@ -220,7 +215,7 @@ const Checkout = () => {
 									<label className='form-check-label text-muted' htmlFor='gridRadios3'>
 										ApplePay
 									</label>
-								</div>
+								</div> */}
 							</div>
 						</div>
 
@@ -273,7 +268,7 @@ const Checkout = () => {
 										<th scope='row' className='border-0 px-0 pt-0 pb-4 font-weight-normal'>
 											Payment
 										</th>
-										<td className='text-end border-0 px-0 pt-0 pb-4'>ApplePay</td>
+										<td className='text-end border-0 px-0 pt-0 pb-4'>{select}</td>
 									</tr>
 								</tbody>
 							</table>

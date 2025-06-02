@@ -17,9 +17,8 @@ const ProductDetail = () => {
 
     const dispatch = useDispatch();
 
-    console.log(useParams());
-
 	//取得產品id
+    console.log("useParams: ", useParams());
 	const {id} = useParams();
 
 	const api = `/v2/api/${process.env.REACT_APP_API_PATH}`;
