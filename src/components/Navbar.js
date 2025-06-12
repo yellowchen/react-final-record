@@ -47,6 +47,11 @@ const Navbar = ({cartData}) => {
 									Product
 								</NavLink>
 							</li>
+							<li className='nav-item active mb-md-2 me-2'>
+								<NavLink className='nav-link border-bottom border-2' to='/wishlist'>
+									<i className='far fa-heart'></i>
+								</NavLink>
+							</li>
 						</ul>
 					</div>
 

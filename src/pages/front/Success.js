@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { thousandFormat } from "../../store";
+import { PaymentContext } from "./FrontLayout";
 
 
 const Success = () => {
     // 主要要呈現訂單的結果
 
     const [orderData, setOrderData] = useState({});
+
+    const {select} = useContext(PaymentContext);
 
     //先取得OrderID
     const {orderId} = useParams();
@@ -108,7 +110,7 @@ const Success = () => {
 													<th scope='row' className='border-0 px-0 pt-0 font-weight-normal'>
 														Payment
 													</th>
-													<td className='text-end border-0 px-0 pt-0'>ApplePay</td>
+													<td className='text-end border-0 px-0 pt-0'>{select}</td>
 												</tr>
 											</tbody>
 										</table>

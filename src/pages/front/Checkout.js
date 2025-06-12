@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 // import { Input } from "../../components/FormElement";
 import axios from "axios";
 import { useOutletContext, Link, useNavigate } from 'react-router-dom';
 import { thousandFormat } from "../../store";
+import { PaymentContext } from './FrontLayout';
 
 
 const Checkout = () => {
-    const [select, setSelect] = useState("");
+    // const [select, setSelect] = useState("");
+    const {select, handleSelected} = useContext(PaymentContext);
+
     const {cartData} = useOutletContext();
     console.log(cartData);
     const navigate = useNavigate();
@@ -45,11 +48,7 @@ const Checkout = () => {
 		}
 	};
 
-    const handleSelected = (e) => {
-        setSelect(e.target.value)
-    }
 
-    console.log("select: ", select);
 
     const inputRules = [
 		{
@@ -268,7 +267,9 @@ const Checkout = () => {
 										<th scope='row' className='border-0 px-0 pt-0 pb-4 font-weight-normal'>
 											Payment
 										</th>
-										<td className='text-end border-0 px-0 pt-0 pb-4'>{select}</td>
+										<td className='text-end border-0 px-0 pt-0 pb-4'>
+                                            {select}
+                                        </td>
 									</tr>
 								</tbody>
 							</table>

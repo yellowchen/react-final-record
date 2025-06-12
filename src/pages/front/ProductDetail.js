@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useParams, Link, useOutletContext} from "react-router-dom";
+import {useParams, Link, useOutletContext, useNavigate} from "react-router-dom";
 import axios from "axios";
 import Loading from './../../components/Loading';
 import { useDispatch } from 'react-redux';
@@ -11,11 +11,12 @@ import AdminCoupons from './../admin/AdminCoupons';
 const ProductDetail = () => {
 	
 	const [product, setProduct] = useState([]);
-	const [cartQuantity, setCartQuantity] = useState(1);
+	// const [cartQuantity, setCartQuantity] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
-	const {getCart} = useOutletContext();
+	const { getCart, addToCart, cartQuantity, setCartQuantity } = useOutletContext();
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 	//取得產品id
     console.log("useParams: ", useParams());
@@ -40,32 +41,6 @@ const ProductDetail = () => {
 		getProduct(id);
 	}, [id]);
 
-	//新增至購物車行為
-	const addToCart = async() => {
-		const data = {
-				data: {
-                    product_id: product.id,
-                    qty: cartQuantity,
-                }
-            }
-		setIsLoading(true);
-		try {
-			const res = await axios.post(`${api}/cart`, data);
-			console.log("res.data: ", res.data);
-			getCart();
-			dispatch(
-				// createMessage(res.data)
-				createAsyncMessage(res.data)
-			);
-			setIsLoading(false);
-		}catch(err) {
-            // console.log(err);
-			dispatch(
-                createAsyncMessage(err.response.data)
-            )
-			setIsLoading(false);
-		}
-	}
 
 	return (
 		<>
@@ -78,7 +53,7 @@ const ProductDetail = () => {
 						background: `url(${product.imageUrl}) no-repeat center center / cover`,
 					}}
 				></div>
-				<div className='row mt-4 mb-7 justify-content-around'>
+				<div className='row my-5 justify-content-around'>
 					<div className='col-md-7'>
 						<h2 className='mb-0'>{product.title}</h2>
 						<p className='fw-bold'>NT$ {product.price}</p>
@@ -120,20 +95,20 @@ const ProductDetail = () => {
 						<button
 							type='button'
 							className='btn btn-dark w-100 rounded-0 py-3'
-							onClick={addToCart}
+							onClick={() => {addToCart(product.id)}}
 							disabled={isLoading} //true時，disabled (避免用戶在還沒跑完更新資訊時，重複點選)
 						>
 							Add To Cart
 						</button>
 					</div>
 				</div>
-				<Link
-					to='/products'
-					className='btn btn-dark rounded-circle float-end d-flex justify-content-center align-items-center'
+				<button
+					onClick={() => {navigate(-1)}}
+					className='btn btn-dark rounded-circle float-end d-flex justify-content-center align-items-center mb-3'
 					style={{ width: "60px", height: "60px"}}
 				>
 					BACK
-				</Link>
+				</button>
 			</div>
 		</>
 	);

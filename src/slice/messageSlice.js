@@ -19,7 +19,6 @@ export const messageSlice = createSlice({
                 state.push({
 					// id: action.payload.id,
                     id: new Date().getTime(),
-
 					type: "success",
 					title: "UPDATE",
 					text: action.payload.message,

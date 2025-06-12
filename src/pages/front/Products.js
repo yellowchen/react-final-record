@@ -1,14 +1,27 @@
 import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useOutletContext} from "react-router-dom";
 // import ReactLoading from "react-loading";
 import axios from "axios";
 import Pagination from './../../components/Pagination';
 import Loading from './../../components/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToWishlist } from "../../slice/WishSlice";
+
 
 const Products = () => {
 	const [products, setProducts] = useState([]);
 	const [pagination, setPagination] = useState({});
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
+    const dispatch = useDispatch();
+    console.log(dispatch);
+
+    const {addToCart} = useOutletContext();
+    const wish = useSelector((state) => state.wishlists);
+	console.log("wish: ", wish);
+
+    
+    const navigate = useNavigate();
 
 	//取得產品的行為
 	const getProducts = async (page = 1) => {
@@ -27,12 +40,30 @@ const Products = () => {
 
 	useEffect(() => {
 		getProducts(1)
-	}, [])
+	}, []);
+
+    //add to wishlist
+    const handleAddWishlist = (wishItem) => {
+		dispatch(addToWishlist(wishItem));
+        // navigate("/wishlist")
+	};
+
+    const pureHeart = {
+		right: "16px",
+		top: "6px",
+		fontSize: "1.5rem",
+        color: "#ccc"
+	};
+
+    const colorHeart = {
+        ...pureHeart,
+        color: "red"
+    }
 
 	return (
 		<>
 			<div className='container mt-md-5 mt-3 mb-7'>
-				<Loading isLoading={isLoading}/>
+				<Loading isLoading={isLoading} />
 				<div className='row'>
 					{products.map((item) => (
 						<div className='col-md-3' key={item.id}>
@@ -42,20 +73,43 @@ const Products = () => {
 									className='card-img-top rounded-0 object-cover'
 									alt={item.title}
 									style={{
-										// width: "200px",
 										height: "200px",
-										border: "1px solid #000",
 									}}
 								/>
-								<a href='#' className='text-dark'>
-									<i
-										className='far fa-heart position-absolute'
-										style={{ right: "16px", top: "16px" }}
-									></i>
-								</a>
+								<button
+									className='text-dark btn'
+									onClick={() => {
+										handleAddWishlist(item);
+									}}
+								>
+                                    {
+                                        wish.wishlistItems.some(wish => wish.id === item.id)
+                                            ? (
+                                                <i
+                                                    className='bi bi-suit-heart-fill position-absolute'
+                                                    style={colorHeart}
+                                                ></i>
+                                            )
+                                            : (
+                                                <i
+                                                    className='bi bi-suit-heart-fill position-absolute'
+                                                    style={pureHeart}
+                                                ></i>
+                                            )
+                                    }
+
+								</button>
 								<div className='card-body px-1'>
-									<h4 className='mb-0 mt-3'>
+									<h4 className='mb-0 mt-3 d-flex justify-content-between align-items-center'>
 										<Link to={`/product/${item.id}`}>{item.title}</Link>
+										<button
+											className='btn'
+											onClick={() => {
+												addToCart(item.id);
+											}}
+										>
+											<i className='bi bi-bag-fill'></i>
+										</button>
 									</h4>
 									<p className='text-muted mt-3 text-end'>$ {item.price}</p>
 								</div>
@@ -64,33 +118,6 @@ const Products = () => {
 					))}
 				</div>
 				<nav className='d-flex justify-content-center'>
-					{/* <ul className='pagination'>
-						<li className='page-item'>
-							<a className='page-link' href='#' aria-label='Previous'>
-								<span aria-hidden='true'>&laquo;</span>
-							</a>
-						</li>
-						<li className='page-item active'>
-							<a className='page-link' href='#'>
-								1
-							</a>
-						</li>
-						<li className='page-item'>
-							<a className='page-link' href='#'>
-								2
-							</a>
-						</li>
-						<li className='page-item'>
-							<a className='page-link' href='#'>
-								3
-							</a>
-						</li>
-						<li className='page-item'>
-							<a className='page-link' href='#' aria-label='Next'>
-								<span aria-hidden='true'>&raquo;</span>
-							</a>
-						</li>
-					</ul> */}
 					<Pagination pagination={pagination} changePage={getProducts} />
 				</nav>
 			</div>

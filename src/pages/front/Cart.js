@@ -96,7 +96,11 @@ const Cart = () => {
 										>
 											<i className='bi bi-x-lg'></i>
 										</button>
-										<p className='mb-0 fw-bold'>{item.product.title}</p>
+										<p className='mb-0 fw-bold'>
+											{item.product.title}
+                                            <br/>
+											<small>NT$ {item.product.price}</small>
+										</p>
 										<p className='mb-1 text-muted' style={{ fontSize: "14px" }}>
 											{item.product.content}
 										</p>
