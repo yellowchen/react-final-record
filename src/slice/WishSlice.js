@@ -14,24 +14,18 @@ export const wishSlice = createSlice({
             //02 new add
             const wishIndex = state.wishlistItems.findIndex(item => item.id === action.payload.id);
             if(wishIndex >= 0) {
-                alert("Product already exists in wishlist")
+                state.wishlistItems = state.wishlistItems;
             }else {
                 state.wishlistItems?.push(action.payload);
             }
-            localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems))
         },
         removeWishItem (state, action) {
             const filterWishlist = state.wishlistItems.filter(item => item.id !== action.payload.id);
             state.wishlistItems = filterWishlist;
-            localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems));
         },
-        clearAllWishlist (state, action) {
-            state.wishlistItems = [];
-            localStorage.clear()
-        }
     }
 });
 
 export default wishSlice.reducer;
-export const {addToWishlist, removeWishItem, clearAllWishlist} = wishSlice.actions;
+export const { addToWishlist, removeWishItem } = wishSlice.actions;
 

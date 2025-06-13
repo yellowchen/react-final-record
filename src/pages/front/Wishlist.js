@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from "react-redux"
 import { Link, useOutletContext, useNavigate } from 'react-router-dom';
-import { removeWishItem, clearAllWishlist } from "../../slice/WishSlice";
+import { removeWishItem } from "../../slice/WishSlice";
 import Wish from "../../components/Wish";
 
 
@@ -8,12 +8,12 @@ const Wishlist = () => {
     const wish = useSelector((state) => state.wishlists);
 	console.log("wish: ", wish);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleClearAllWishlist = () => {
-        dispatch(clearAllWishlist())
-    }
+    // const handleClearAllWishlist = () => {
+    //     dispatch(clearAllWishlist())
+    // }
 
     return (
 		<>
@@ -31,12 +31,12 @@ const Wishlist = () => {
 								minHeight: "calc(100vh - 56px - 76px)",
 							}}
 						>
-							<div className='d-flex justify-content-between align-items-baseline'>
+							{/* <div className='d-flex justify-content-between align-items-baseline'>
 								<h2 className='mt-2'>Your Wishlist</h2>
 								<button className='btn' onClick={handleClearAllWishlist}>
 									<h5>Clear All</h5>
 								</button>
-							</div>
+							</div> */}
 
 							{wish.wishlistItems?.map((item) => (
 								<Wish item={item} key={item.id} />

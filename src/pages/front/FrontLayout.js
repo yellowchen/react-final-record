@@ -64,13 +64,11 @@ const FrontLayout = () => {
 			dispatch(
 				createAsyncMessage(res.data)
 			);
-
             //如果願望清單內有包含該新加入購物車的產品，要從願望清單內去除
             const findItem = wish.wishlistItems?.find(item => item.id === id);
             dispatch(
                 removeWishItem(findItem)
             );
-
 			setIsLoading(false);
             navigate("/cart");
 		} catch (err) {

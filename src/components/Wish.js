@@ -1,21 +1,21 @@
 
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useOutletContext, Link } from 'react-router-dom';
-import { removeWishItem, clearAllWishlist } from '../slice/WishSlice';
+import { removeWishItem } from '../slice/WishSlice';
+import { useEffect } from 'react';
 
 
 const Wish = ({ item }) => {
 	const { addToCart } = useOutletContext();
 	const dispatch = useDispatch();
+    const wish = useSelector((state) => state.wishlists);
 
 	const handleRemoveWishItem = (wishItem) => {
 		dispatch(removeWishItem(wishItem));
 	};
-
-	const handleClearAllWishlist = () => {
-		dispatch(clearAllWishlist());
-	};
+    useEffect(() => {
+		localStorage.setItem("wishlistItems", JSON.stringify(wish.wishlistItems));
+	}, [handleRemoveWishItem]);
 
 	return (
 		<div className='d-flex mt-4 bg-light'>
