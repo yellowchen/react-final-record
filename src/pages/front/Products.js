@@ -5,7 +5,7 @@ import axios from "axios";
 import Pagination from './../../components/Pagination';
 import Loading from './../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist, removeWishItem } from "../../slice/WishSlice";
+import { toggleWishItem, removeWishItem } from "../../slice/WishSlice";
 
 
 const Products = () => {
@@ -44,17 +44,12 @@ const Products = () => {
 
     //toggle wishlist
     const toggleWishlist = (wishItem) => {
-        if(wish?.wishlistItems?.includes(wishItem)) {
-            dispatch(removeWishItem(wishItem))
-        }else {
-            dispatch(addToWishlist(wishItem));
-        }
-        // navigate("/wishlist")
+        dispatch(toggleWishItem(wishItem));
 	};
 
     useEffect(() => {
 		localStorage.setItem("wishlistItems", JSON.stringify(wish.wishlistItems));
-	}, [toggleWishlist]);
+	}, [wish]);
 
 
     const pureHeart = {
