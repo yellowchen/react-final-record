@@ -1,7 +1,8 @@
 import {NavLink} from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 
 const Navbar = ({cartData}) => {
+    const wish = useSelector((state) => state.wishlists);
 
     return (
 		<div className='bg-white sticky-top flex-shrink-0'>
@@ -49,7 +50,11 @@ const Navbar = ({cartData}) => {
 							</li>
 							<li className='nav-item active mb-md-2 me-2'>
 								<NavLink className='nav-link border-bottom border-2' to='/wishlist'>
-									<i className='far fa-heart'></i>
+									{wish?.wishlistItems?.length === 0 ? (
+										<i className='bi bi-suit-heart'></i>
+									) : (
+										<i className='bi bi-suit-heart-fill' style={{ color: "red" }}></i>
+									)}
 								</NavLink>
 							</li>
 						</ul>

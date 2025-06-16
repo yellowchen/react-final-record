@@ -9,6 +9,7 @@ import { addToWishlist, removeWishItem } from "../../slice/WishSlice";
 
 
 const Products = () => {
+
 	const [products, setProducts] = useState([]);
 	const [pagination, setPagination] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +21,6 @@ const Products = () => {
     const wish = useSelector((state) => state.wishlists);
 	console.log("wish: ", wish);
 
-    
     const navigate = useNavigate();
 
 	//取得產品的行為
@@ -44,7 +44,7 @@ const Products = () => {
 
     //toggle wishlist
     const toggleWishlist = (wishItem) => {
-        if(wish.wishlistItems.includes(wishItem)) {
+        if(wish?.wishlistItems?.includes(wishItem)) {
             dispatch(removeWishItem(wishItem))
         }else {
             dispatch(addToWishlist(wishItem));
@@ -53,7 +53,7 @@ const Products = () => {
 	};
 
     useEffect(() => {
-        localStorage.setItem("wishlistItems", JSON.stringify(wish.wishlistItems));
+		localStorage.setItem("wishlistItems", JSON.stringify(wish.wishlistItems));
 	}, [toggleWishlist]);
 
 
@@ -86,26 +86,39 @@ const Products = () => {
 									}}
 								/>
 								<button
-									className='text-dark btn'
+									type='button'
+									className='btn btn-outline-light'
 									onClick={() => {
 										toggleWishlist(item);
 									}}
 								>
-                                    {
-                                        wish.wishlistItems.some(wish => wish.id === item.id)
+									{/* {
+                                        wish?.wishlistItems?.some(wish => wish.id === item.id)
                                             ? (
-                                                <i
-                                                    className='bi bi-suit-heart-fill position-absolute'
-                                                    style={colorHeart}
-                                                ></i>
-                                            )
-                                            : (
                                                 <i
                                                     className='bi bi-suit-heart-fill position-absolute'
                                                     style={pureHeart}
                                                 ></i>
                                             )
-                                    }
+                                            : (
+                                                <i
+                                                    className='bi bi-suit-heart-fill position-absolute'
+                                                    style={colorHeart}
+                                                ></i>
+                                            )
+                                    } */}
+
+									<i className='bi bi-suit-heart-fill position-absolute' style={pureHeart}></i>
+									{wish?.wishlistItems
+										.filter((wish) => wish.id === item.id)
+										.map((wish) => (
+											<i
+                                                key={wish}
+												className='bi bi-suit-heart-fill position-absolute'
+												style={colorHeart}
+											></i>
+									))}
+
 
 								</button>
 								<div className='card-body px-1'>

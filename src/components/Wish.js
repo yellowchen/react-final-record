@@ -15,7 +15,7 @@ const Wish = ({ item }) => {
 	};
     useEffect(() => {
 		localStorage.setItem("wishlistItems", JSON.stringify(wish.wishlistItems));
-	}, [handleRemoveWishItem]);
+	}, [wish]);
 
 	return (
 		<div className='d-flex mt-4 bg-light'>
