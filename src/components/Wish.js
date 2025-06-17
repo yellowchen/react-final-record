@@ -33,10 +33,11 @@ const Wish = ({ item }) => {
 			<div className='w-100 p-3 position-relative'>
 				<button
 					type='button'
-					className='btn position-absolute'
+					className='btn position-absolute btn-outline-light'
 					style={{
 						top: "10px",
 						right: "10px",
+						color: "#000",
 					}}
 					onClick={() => handleRemoveWishItem(item)}
 				>
@@ -49,14 +50,21 @@ const Wish = ({ item }) => {
 				</p>
 				<div>
 					<button
-						className='btn ps-0'
+						type='button'
+						className='btn ps-0 btn-outline-light'
 						onClick={() => {
 							addToCart(item.id);
 						}}
+						style={{ color: "#000" }}
 					>
 						<i className='bi bi-bag-fill'></i>
 					</button>
-					<button className='btn ps-0' onClick={() => handleRemoveWishItem(item)}>
+					<button
+						type='button'
+						className='btn ps-0 btn-outline-light'
+						onClick={() => handleRemoveWishItem(item)}
+						style={{ color: "#000" }}
+					>
 						<i className='bi bi-trash3'></i>
 					</button>
 				</div>

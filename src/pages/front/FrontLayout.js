@@ -31,12 +31,12 @@ const FrontLayout = () => {
     const navigate = useNavigate();
     const wish = useSelector((state) => state.wishlists);
 
-	const api = `/v2/api/${process.env.REACT_APP_API_PATH}`;
+	// const api = `/v2/api/${process.env.REACT_APP_API_PATH}`;
 
 	//更新購物車資訊
 	const getCart = async () => {
 		try {
-			const cartRes = await axios.get(`${api}/cart`);
+			const cartRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/cart`);
 			setCartData(cartRes.data.data);
 		} catch (err) {
 			console.log(err);
@@ -58,7 +58,7 @@ const FrontLayout = () => {
 		};
 		setIsLoading(true);
 		try {
-			const res = await axios.post(`${api}/cart`, data);
+			const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/cart`, data);
 			console.log("res.data: ", res.data);
 			getCart();
 			dispatch(

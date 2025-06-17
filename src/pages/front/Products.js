@@ -87,43 +87,21 @@ const Products = () => {
 										toggleWishlist(item);
 									}}
 								>
-									{/* {
-                                        wish?.wishlistItems?.some(wish => wish.id === item.id)
-                                            ? (
-                                                <i
-                                                    className='bi bi-suit-heart-fill position-absolute'
-                                                    style={pureHeart}
-                                                ></i>
-                                            )
-                                            : (
-                                                <i
-                                                    className='bi bi-suit-heart-fill position-absolute'
-                                                    style={colorHeart}
-                                                ></i>
-                                            )
-                                    } */}
-
-									<i className='bi bi-suit-heart-fill position-absolute' style={pureHeart}></i>
-									{wish?.wishlistItems
-										.filter((wish) => wish.id === item.id)
-										.map((wish) => (
-											<i
-                                                key={wish}
-												className='bi bi-suit-heart-fill position-absolute'
-												style={colorHeart}
-											></i>
-									))}
-
-
+									{wish?.wishlistItems?.some((wish) => wish.id === item.id) ? (
+										<i className='bi bi-suit-heart-fill position-absolute' style={colorHeart}></i>
+									) : (
+										<i className='bi bi-suit-heart-fill position-absolute' style={pureHeart}></i>
+									)}
 								</button>
 								<div className='card-body px-1'>
 									<h4 className='mb-0 mt-3 d-flex justify-content-between align-items-center'>
 										<Link to={`/product/${item.id}`}>{item.title}</Link>
 										<button
-											className='btn'
+											className='btn btn-outline-light'
 											onClick={() => {
 												addToCart(item.id);
 											}}
+											style={{ color: "#000" }}
 										>
 											<i className='bi bi-bag-fill'></i>
 										</button>
