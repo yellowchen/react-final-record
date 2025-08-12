@@ -22,7 +22,6 @@ const AdminOrders = () => {
         orderModal.current = new Modal("#orderModal", {
             backdrop: "static"});
         getOrders();
-
     }, [])
 
     //取得訂單的行為
@@ -30,7 +29,6 @@ const AdminOrders = () => {
         try {
             const orderRes = await axios.get(`${api}/admin/orders?page=${page}`);
             console.log(orderRes);
-
             setOrders(orderRes.data.orders);
             setPagination(orderRes.data.pagination);
             

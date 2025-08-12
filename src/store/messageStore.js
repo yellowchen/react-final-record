@@ -51,7 +51,7 @@ export function handleErrorMessage(dispatch, err) {
 			title: "更新失敗",
             //這邊的text結果可能是單個錯誤訊息(string)或是多個錯誤訊息(陣列)，因此要加入isArray判斷
 			text: Array.isArray(err?.response?.data?.message)
-				? err?.response?.data?.message.join("、")
+				? err?.response?.data?.message.join(" ")
 				: err?.response?.data?.message,
 		},
 	});

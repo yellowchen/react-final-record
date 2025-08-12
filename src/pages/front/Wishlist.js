@@ -31,13 +31,6 @@ const Wishlist = () => {
 								minHeight: "calc(100vh - 56px - 76px)",
 							}}
 						>
-							{/* <div className='d-flex justify-content-between align-items-baseline'>
-								<h2 className='mt-2'>Your Wishlist</h2>
-								<button className='btn' onClick={handleClearAllWishlist}>
-									<h5>Clear All</h5>
-								</button>
-							</div> */}
-
 							{wish.wishlistItems?.map((item) => (
 								<Wish item={item} key={item.id} />
 							))}

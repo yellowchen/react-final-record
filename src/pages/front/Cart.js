@@ -74,23 +74,25 @@ const Cart = () => {
 							</div>
 
 							{carts?.map((item) => (
-								<div className='d-flex mt-4 bg-light' key={item.id}>
-									<img
-										src={item.product.imageUrl}
-										style={{
-											maxHeight: "200px",
-											maxWidth: "200px",
-											objectFit: "cover",
-											aspectRatio: 1 / 1,
-										}}
-									/>
+								<div className='d-flex mt-4 bg-light align-items-center' key={item.id}>
+									<Link to={`/product/${item.product.id}`}>
+										<img
+											src={item.product.imageUrl}
+											style={{
+												maxHeight: "200px",
+												maxWidth: "200px",
+												objectFit: "cover",
+												aspectRatio: 1 / 1,
+											}}
+										/>
+									</Link>
 									<div className='w-100 p-3 position-relative'>
 										<button
 											type='button'
 											className='btn position-absolute'
 											style={{
-												top: "10px",
-												right: "10px",
+												top: "-40px",
+												right: "5px",
 											}}
 											onClick={() => removeCartItem(item.id)}
 										>
@@ -98,11 +100,8 @@ const Cart = () => {
 										</button>
 										<p className='mb-0 fw-bold'>
 											{item.product.title}
-                                            <br/>
+											<br />
 											<small>NT$ {item.product.price}</small>
-										</p>
-										<p className='mb-1 text-muted' style={{ fontSize: "14px" }}>
-											{item.product.content}
 										</p>
 										<div className='d-flex justify-content-between align-items-center w-100'>
 											<div className='input-group w-50 align-items-center'>

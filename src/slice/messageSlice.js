@@ -27,11 +27,10 @@ export const messageSlice = createSlice({
                 state.push({
 					// id: action.payload.id,
 					id: new Date().getTime(),
-
 					type: "danger",
 					title: "FAILED",
 					text: Array.isArray(action.payload?.message)
-						? action.payload?.message.join("、")
+						? action.payload?.message.join("\n")
 						: action.payload?.message,
 				});
             }

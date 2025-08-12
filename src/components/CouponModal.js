@@ -19,10 +19,6 @@ const CouponModal = ({ closeModal, getCoupons, type, tempCoupon, setTempCoupon }
 	// new Date() --> 儲存的時間格式
 	// input --> 實際日期 2024-4-11 (<input>value顯示上的格式需要這樣的呈現)
 	const [date, setDate] = useState(new Date());
-	console.log(date);
-    console.log(- true);
-    console.log(Boolean([]));
-
 	const [, dispatch] = useContext(MessageContext);
 
 	useEffect(() => {

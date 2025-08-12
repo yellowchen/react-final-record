@@ -7,6 +7,7 @@ import axios from "axios";
 import "./styles/all.scss";
 import App from './App';
 import { store } from './store';
+import ScrollToTop from './components/ScrollToTop';
 
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;  //預設的URL
@@ -16,6 +17,7 @@ root.render(
 	<React.StrictMode>
 		<Router>
 			<Provider store={store}>
+                <ScrollToTop />
 				<App />
 			</Provider>
 		</Router>

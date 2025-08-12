@@ -7,15 +7,15 @@ const Navbar = ({cartData}) => {
     return (
 		<div className='bg-white sticky-top flex-shrink-0'>
 			<div className='container'>
-				<nav className='navbar px-0 navbar-expand-lg navbar-light bg-white'>
+				<nav className='navbar px-0 mx-1 my-2 navbar-expand-lg navbar-light bg-white'>
 					{/* logo置中 */}
 					<NavLink
 						className='navbar-brand position-absolute'
 						to='/'
 						style={{
 							left: "50%",
-							transform: "translate(-50%, -50%)",
-							top: "1.5rem",
+							transform: "translate(-50%, -30%)",
+							top: "1rem",
 						}}
 					>
 						:- ))
@@ -23,15 +23,20 @@ const Navbar = ({cartData}) => {
 
 					{/* 麵包 */}
 					<button
-						className='navbar-toggler'
+						className='btn navbar-toggler btn-outline-light'
 						type='button'
 						data-bs-toggle='collapse'
 						data-bs-target='#navbarNav'
 						aria-controls='navbarNav'
 						aria-expanded='false'
 						aria-label='Toggle navigation'
+						style={
+							{
+								// marginTop: ".5rem",
+							}
+						}
 					>
-						<span className='navbar-toggler-icon'></span>
+						<i class='bi bi-list'></i>
 					</button>
 
 					{/* 會被隱藏的內容 */}
@@ -43,12 +48,12 @@ const Navbar = ({cartData}) => {
 						}}
 					>
 						<ul className='navbar-nav'>
-							<li className='nav-item active mb-md-2 me-2'>
+							<li className='nav-item active mb-md-2 me-2 text-center' style={{ width: "3rem" }}>
 								<NavLink className='nav-link border-bottom border-2' to='/products'>
-									Product
+									<i class='bi bi-box-seam'></i>
 								</NavLink>
 							</li>
-							<li className='nav-item active mb-md-2 me-2'>
+							<li className='nav-item active mb-md-2 me-2 text-center' style={{ width: "3rem" }}>
 								<NavLink className='nav-link border-bottom border-2' to='/wishlist'>
 									{wish?.wishlistItems?.length === 0 ? (
 										<i className='bi bi-suit-heart'></i>
@@ -66,6 +71,7 @@ const Navbar = ({cartData}) => {
 						style={{
 							top: "1.5rem",
 							right: "0",
+							transform: "translate(-50%, -30%)",
 						}}
 					>
 						<NavLink className='nav-link position-relative' to='/cart'>

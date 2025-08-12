@@ -31,8 +31,6 @@ const FrontLayout = () => {
     const navigate = useNavigate();
     const wish = useSelector((state) => state.wishlists);
 
-	// const api = `/v2/api/${process.env.REACT_APP_API_PATH}`;
-
 	//更新購物車資訊
 	const getCart = async () => {
 		try {
@@ -84,7 +82,6 @@ const FrontLayout = () => {
 				<Navbar cartData={cartData} />
 				<MessageToast />
 				<main
-					// className='d-flex flex-column min-vh-100'
 					className='flex-grow-1 flex-shrink-0'
 				>
 					<Outlet context={{ getCart, cartData, addToCart, cartQuantity, setCartQuantity }} />

@@ -8,7 +8,7 @@ const Dashboard = () => {
 	const navigate = useNavigate();
 
 	const reducer = useReducer(messageReducer, initState);
-	//-->原先 const [state, dispatch] = useReducer((state, action) => {}, initState);
+	//-->原先 const [state, dispatch] = useReducer(namedReducer, initState);
 
 	//登出帳戶，清除cookie
 	const logout = () => {
@@ -88,6 +88,10 @@ const Dashboard = () => {
 							<Link className='list-group-item list-group-item-action py-3' to='/admin/orders'>
 								<i className='bi bi-receipt me-2' />
 								訂單列表
+							</Link>
+							<Link className='list-group-item list-group-item-action py-3' to='/admin/articles'>
+								<i className='bi bi-file-earmark-text pe-2'></i>
+								文章列表
 							</Link>
 						</ul>
 					</div>

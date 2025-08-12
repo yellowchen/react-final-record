@@ -53,9 +53,9 @@ const Products = () => {
 
 
     const pureHeart = {
-		right: "16px",
-		top: "6px",
-		fontSize: "1.5rem",
+		// right: "16px",
+		// top: "6px",
+		// fontSize: "1.5rem",
         color: "#ccc"
 	};
 
@@ -71,42 +71,55 @@ const Products = () => {
 				<div className='row'>
 					{products.map((item) => (
 						<div className='col-md-3' key={item.id}>
-							<div className='card border-0 mb-4 px-1 position-relative'>
-								<img
-									src={item.imageUrl}
-									className='card-img-top rounded-0 object-cover'
-									alt={item.title}
-									style={{
-										height: "200px",
-									}}
-								/>
-								<button
-									type='button'
-									className='btn btn-outline-light'
-									onClick={() => {
-										toggleWishlist(item);
-									}}
-								>
-									{wish?.wishlistItems?.some((wish) => wish.id === item.id) ? (
-										<i className='bi bi-suit-heart-fill position-absolute' style={colorHeart}></i>
-									) : (
-										<i className='bi bi-suit-heart-fill position-absolute' style={pureHeart}></i>
-									)}
-								</button>
+							<div
+								className='card border-2 mb-4 px-0 position-relative'
+							>
+								<Link to={`/product/${item.id}`}>
+									<img
+										src={item.imageUrl}
+										className='card-img-top rounded-0 object-cover'
+										alt={item.title}
+										style={{
+											height: "200px",
+										}}
+									/>
+								</Link>
 								<div className='card-body px-1'>
-									<h4 className='mb-0 mt-3 d-flex justify-content-between align-items-center'>
-										<Link to={`/product/${item.id}`}>{item.title}</Link>
-										<button
-											className='btn btn-outline-light'
-											onClick={() => {
-												addToCart(item.id);
-											}}
-											style={{ color: "#000" }}
-										>
-											<i className='bi bi-bag-fill'></i>
-										</button>
+									<h4 className='mb-0 mt-2 d-flex flex-column justify-content-between align-items-center'>
+										<p>
+											<Link to={`/product/${item.id}`}>
+												{item.title}
+												<h5 className='text-muted text-center mt-2'> $ {item.price}</h5>
+											</Link>
+										</p>
+										<div>
+											<Link to={`/product/${item.id}`} className='btn'>
+												<i class='bi bi-info-circle'></i>
+											</Link>
+											<button
+												type='button'
+												className='btn btn-outline-light'
+												onClick={() => {
+													toggleWishlist(item);
+												}}
+											>
+												{wish?.wishlistItems?.some((wish) => wish.id === item.id) ? (
+													<i className='bi bi-suit-heart-fill' style={colorHeart}></i>
+												) : (
+													<i className='bi bi-suit-heart-fill' style={pureHeart}></i>
+												)}
+											</button>
+											<button
+												className='btn btn-outline-light'
+												onClick={() => {
+													addToCart(item.id);
+												}}
+												style={{ color: "#000" }}
+											>
+												<i className='bi bi-bag-fill'></i>
+											</button>
+										</div>
 									</h4>
-									<p className='text-muted mt-3 text-end'>$ {item.price}</p>
 								</div>
 							</div>
 						</div>
