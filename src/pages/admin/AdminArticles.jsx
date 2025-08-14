@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 
 const AdminArticles = () => {
 	const [articles, setArticles] = useState([]);
-    const [content, setContent] = useState([]);
+    const [content, setContent] = useState();
 	const [type, setType] = useState("create");
 	const [tempArticle, setTempArticle] = useState({});
 	const [pagination, setPagination] = useState({});
@@ -35,12 +35,12 @@ const AdminArticles = () => {
 	console.log("articles: ", articles);
 
 	//getArticle
-	const getArticle = async (id) => {
-		try {
+	const getArticle = async (id) => {		
+        try {
 			const res = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/article/${id}`);
             console.log("getArticle: ",res.data.article);
             // setTempArticle(res.data.article);
-            setContent(res.data.article.content)
+            setContent(res?.data.article.content)
 		} catch (err) {
 			console.log(err);
 		}

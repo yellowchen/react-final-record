@@ -10,6 +10,7 @@ import { addZero } from './../store';
 
 
 const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, content }) => {
+    console.log(typeof content);
     console.log("tempArticle: ", tempArticle)
 	const [date, setDate] = useState(new Date());
 	console.log(date);
@@ -26,6 +27,10 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 	const dispatch = useDispatch();
 
 	//01 判斷是格式是新增還是修改
+    // useEffect(() => {
+    //     getArticle();
+    // }, [content])
+
 	useEffect(() => {
 		if (type === "create") {
 			setTempData({
@@ -38,7 +43,10 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 			});
 			setDate(new Date(new Date().setDate(new Date().getDate()))); //將當前時間多加一天
 		} else if (type === "edit") {
-			setTempData(tempArticle);
+			setTempData({
+				...tempArticle,
+                ...{content: content}
+			});
 			setDate(new Date(tempArticle.create_at));
 		}
 	}, [type, tempArticle, content]);
@@ -60,7 +68,6 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 			}));
 		}
 	};
-	console.log("articleTemp: ",tempData);
 
 	//設定選擇的時間範圍(起碼不能小於當前日期)
 	const handleDateRange = (e) => {
@@ -225,7 +232,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 													id='content'
 													name='content'
 													style={{ height: "100px" }}
-													value={content}
+													value={tempData.content}
 													onChange={handleChange}
 												></textarea>
 											</div>
