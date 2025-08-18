@@ -9,9 +9,7 @@ import { ArticleModalRules } from './FormRules';
 import { addZero } from './../store';
 
 
-const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, content }) => {
-    console.log(typeof content);
-    console.log("tempArticle: ", tempArticle)
+const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	const [date, setDate] = useState(new Date());
 	console.log(date);
 	const [tempData, setTempData] = useState({
@@ -27,10 +25,6 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 	const dispatch = useDispatch();
 
 	//01 判斷是格式是新增還是修改
-    // useEffect(() => {
-    //     getArticle();
-    // }, [content])
-
 	useEffect(() => {
 		if (type === "create") {
 			setTempData({
@@ -43,13 +37,10 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles, getArticle, 
 			});
 			setDate(new Date(new Date().setDate(new Date().getDate()))); //將當前時間多加一天
 		} else if (type === "edit") {
-			setTempData({
-				...tempArticle,
-                ...{content: content}
-			});
+			setTempData(tempArticle);
 			setDate(new Date(tempArticle.create_at));
 		}
-	}, [type, tempArticle, content]);
+	}, [type, tempArticle]);
     console.log("tempData: ", tempData);
 
 	//02 <input>輸入值轉型與否

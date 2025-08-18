@@ -32,15 +32,13 @@ const AdminArticles = () => {
 			console.log(err);
 		}
 	};
-	console.log("articles: ", articles);
+	// console.log("articles: ", articles);
 
 	//getArticle
 	const getArticle = async (id) => {		
         try {
 			const res = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/article/${id}`);
-            console.log("getArticle: ",res.data.article);
-            // setTempArticle(res.data.article);
-            setContent(res?.data.article.content)
+            await setTempArticle(res.data.article);
 		} catch (err) {
 			console.log(err);
 		}
@@ -77,10 +75,9 @@ const AdminArticles = () => {
 	}, []);
 
 	//ArticleModal
-	const openArticleModal = (type, item) => {
+	const openArticleModal = async (type, item) => {
 		setType(type);
-        getArticle(item.id);
-		setTempArticle(item);
+        await getArticle(item.id);
 		articleModal.current.show();
 	};
 	const closeArticleModal = () => {
