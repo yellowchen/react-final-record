@@ -77,7 +77,11 @@ const AdminArticles = () => {
 	//ArticleModal
 	const openArticleModal = async (type, item) => {
 		setType(type);
-        await getArticle(item.id);
+        if(item.id) {
+            await getArticle(item.id);
+        }else {
+            setTempArticle(item);
+        }
 		articleModal.current.show();
 	};
 	const closeArticleModal = () => {
