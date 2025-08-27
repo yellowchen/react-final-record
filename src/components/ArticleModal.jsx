@@ -12,6 +12,7 @@ import { addZero } from './../store';
 const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	const [date, setDate] = useState(new Date());
 	console.log(date);
+    const [tags, setTags] = useState([]);
 	const [tempData, setTempData] = useState({
 		title: "",
 		image: "",
@@ -41,7 +42,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 			setDate(new Date(tempArticle.create_at));
 		}
 	}, [type, tempArticle]);
-    console.log("tempData: ", tempData);
+	console.log("tempData: ", tempData);
 
 	//02 <input>輸入值轉型與否
 	const handleChange = (e) => {
@@ -87,7 +88,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	};
 	const uploadImg = async (formData) => {
 		const imgRes = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/upload`, formData);
-        // console.log(imgRes);
+		// console.log(imgRes);
 		return imgRes.data.imageUrl;
 	};
 	//刪除圖片
@@ -133,6 +134,29 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 		setTempData(tempArticle);
 		closeModal();
 	};
+
+	//addTag
+	console.log("tags: ", tags);
+	const handleKeyDown = (e) => {
+		const value = e.target.value;
+		if (e.key !== "Enter") return;
+		if (!value.trim()) return;
+		setTags([...tags, value]);
+		// setTempData({
+		// 	...tempData,
+		// 	tag: tags,
+		// });
+		e.target.value = "";
+	};
+
+	const removeTag = (index) => {
+		setTags(tags.filter((_, i) => i !== index));
+		// setTempData({
+		// 	...tempData,
+		// 	tag: tags,
+		// });
+	};
+
 
 	return (
 		<>
@@ -215,6 +239,44 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 													/>
 												</div>
 											))}
+											<div>
+												<label className='w-100 form-label'>
+													標籤
+													<input
+														type='text'
+														className='form-control'
+														onKeyDown={handleKeyDown}
+													/>
+												</label>
+												<div className='d-flex flex-wrap gap-1'>
+													{tags?.map((item, index) => (
+														<div
+															key={index}
+															className='d-inline-block'
+															style={{
+																background: "#ddd",
+																borderRadius: "15px",
+																padding: ".1rem .75rem",
+															}}
+														>
+															<span>{item}</span>
+															<span
+																className='d-inline-block'
+																onClick={() => removeTag(index)}
+																style={{
+																	borderRadius: "50%",
+																	color: "red",
+																	marginLeft: "5px",
+                                                                    textAlign: "center",
+                                                                    cursor: "pointer"
+																}}
+															>
+																&times;
+															</span>
+														</div>
+													))}
+												</div>
+											</div>
 											<div>
 												<label htmlFor='content'>文章內容</label>
 												<textarea
