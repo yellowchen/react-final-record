@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useRef} from 'react';
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
@@ -12,7 +12,13 @@ import { addZero } from './../store';
 const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	const [date, setDate] = useState(new Date());
 	console.log(date);
-    const [tags, setTags] = useState([]);
+
+	//tag
+	const [tags, setTags] = useState([]);
+	const [typing, setTyping] = useState(false);
+	const [editLast, setEditLast] = useState(false);
+	const tagInputRef = useRef(null);
+
 	const [tempData, setTempData] = useState({
 		title: "",
 		image: "",
@@ -20,6 +26,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 		author: "",
 		isPublic: true,
 		content: "",
+		tag: [],
 	});
 
 	//04 Message推播處理
@@ -35,6 +42,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 				author: "",
 				isPublic: true,
 				content: "",
+				tag: [],
 			});
 			setDate(new Date(new Date().setDate(new Date().getDate()))); //將當前時間多加一天
 		} else if (type === "edit") {
@@ -137,26 +145,67 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 
 	//addTag
 	console.log("tags: ", tags);
-	const handleKeyDown = (e) => {
-		const value = e.target.value;
-		if (e.key !== "Enter") return;
-		if (!value.trim()) return;
-		setTags([...tags, value]);
-		// setTempData({
-		// 	...tempData,
-		// 	tag: tags,
-		// });
-		e.target.value = "";
+	console.log("tempDataTag: ", tempData.tag);
+	const handleTag = async (e) => {
+		e.preventDefault();
+		if (e.key === "Enter") {
+			let tagText = tagInputRef.current.textContent;
+			console.log(tagText);
+			if (tagText !== "" && !tags.includes(tagText)) {
+				if (tempData.tag.length === 0) {
+					await setTags((prevState) => [...prevState, tagText]);
+				} else if (tempData.tag.length > 0) {
+					await setTags([...tempData.tag, tagText]);
+				}
+				await setTempData({
+					...tempData,
+					tag: tags,
+				});
+
+				tagInputRef.current.textContent = "";
+			} else {
+				alert("Your tag is empty.");
+			}
+		} else if (e.key === "Backspace") {
+			if (tagInputRef.current.textContent === "" && tags.length > 0) {
+				if (editLast) {
+					console.log("editLast in: ", editLast);
+					let lastTag = tags[tags.length - 1];
+					await setTags((tags) => tags.filter((item) => lastTag !== item));
+					setTempData({
+						...tempData,
+						tag: tags,
+					});
+					tagInputRef.current.textContent = lastTag;
+
+					//將輸入鍵移至尾端
+					let range = document.createRange();
+					let sel = window.getSelection();
+					range.setStart(tagInputRef.current.childNodes[0], tagInputRef.current.textContent.length);
+					range.collapse(true);
+					sel.removeAllRanges();
+					sel.addRange(range);
+					tagInputRef.current.focus();
+
+					setEditLast(false);
+				} else {
+					setEditLast(true);
+				}
+			}
+		}
+		console.log("editLast out: ", editLast);
 	};
 
-	const removeTag = (index) => {
-		setTags(tags.filter((_, i) => i !== index));
-		// setTempData({
-		// 	...tempData,
-		// 	tag: tags,
-		// });
-	};
+	console.log("typing: ", typing);
 
+	const removeTag = async (index) => {
+		await setTags(tags.filter((_, i) => i !== index));
+		console.log("remove tag: ", tags);
+		setTempData({
+			...tempData,
+			tag: tags,
+		});
+	};
 
 	return (
 		<>
@@ -240,41 +289,65 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 												</div>
 											))}
 											<div>
-												<label className='w-100 form-label'>
+												<div className='w-100 form-label'>
 													標籤
-													<input
-														type='text'
-														className='form-control'
-														onKeyDown={handleKeyDown}
-													/>
-												</label>
-												<div className='d-flex flex-wrap gap-1'>
-													{tags?.map((item, index) => (
-														<div
-															key={index}
-															className='d-inline-block'
-															style={{
-																background: "#ddd",
-																borderRadius: "15px",
-																padding: ".1rem .75rem",
-															}}
-														>
-															<span>{item}</span>
+													<div className='d-flex flex-wrap gap-2 align-items-center'>
+														{tempData?.tag &&
+															tempData?.tag?.map((item, index) => (
+																<div key={index} className='d-inline-block tag'>
+																	<span className=''>{item}</span>
+																	<span
+																		className='d-inline-block '
+																		onClick={() => removeTag(index)}
+																		style={{
+																			borderRadius: "50%",
+																			color: "red",
+																			marginLeft: "10px",
+																			textAlign: "center",
+																			cursor: "pointer",
+																		}}
+																	>
+																		&times;
+																	</span>
+																</div>
+															))}
+														{typing ? (
+															// <input
+															//
+															// 	className='form-control'
+															// 	type='text'
+															// 	id='tag'
+															// 	name='tag'
+															// 	value={tagInput}
+															// 	onKeyDown={handleAddTag}
+															// 	onChange={(e) => {
+															// 		setTagInput(e.target.value);
+															// 	}}
+															// />
 															<span
-																className='d-inline-block'
-																onClick={() => removeTag(index)}
-																style={{
-																	borderRadius: "50%",
-																	color: "red",
-																	marginLeft: "5px",
-                                                                    textAlign: "center",
-                                                                    cursor: "pointer"
+																className='tag-edit'
+																ref={tagInputRef}
+																onKeyUp={handleTag}
+																onBlur={() => {
+																	setTyping(false);
+																}}
+																contentEditable
+															></span>
+														) : (
+															<button
+																className='btn tag-btn'
+																type='button'
+																onClick={() => {
+																	setTyping(true);
+																	setTimeout(() => {
+																		tagInputRef.current.focus();
+																	}, 200);
 																}}
 															>
-																&times;
-															</span>
-														</div>
-													))}
+																+
+															</button>
+														)}
+													</div>
 												</div>
 											</div>
 											<div>

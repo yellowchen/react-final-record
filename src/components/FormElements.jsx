@@ -10,7 +10,7 @@ export const ModalInput = ({ item, handleChange, data }) => {
 					id={id}
 					name={name}
 					placeholder={placeholder}
-					value={data[id]}
+					value={data[id] || ""}
 					onChange={handleChange}
                     
 				/>
@@ -48,7 +48,7 @@ export const Input = ({ id, labelText, type, name, placeholder, value, onChange 
 					id={id}
 					name={name}
 					placeholder={placeholder}
-					value={value}
+					value={value || ""}
 					onChange={onChange}
 				/>
 			</label>
