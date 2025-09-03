@@ -48,6 +48,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 		} else if (type === "edit") {
 			setTempData(tempArticle);
 			setDate(new Date(tempArticle.create_at));
+            setTags(tempArticle.tag);
 		}
 	}, [type, tempArticle]);
 	console.log("tempData: ", tempData);
@@ -152,19 +153,14 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 			let tagText = tagInputRef.current.textContent;
 			console.log(tagText);
 			if (tagText !== "" && !tags.includes(tagText)) {
-				if (tempData.tag.length === 0) {
-					await setTags((prevState) => [...prevState, tagText]);
-				} else if (tempData.tag.length > 0) {
-					await setTags([...tempData.tag, tagText]);
-				}
-				await setTempData({
-					...tempData,
+				await setTags((prevState) => [...prevState, tagText]);
+				await setTempData((prevState) => ({
+					...prevState,
 					tag: tags,
-				});
-
+				}));
 				tagInputRef.current.textContent = "";
 			} else {
-				alert("Your tag is empty.");
+				alert("Your tag is empty or already existed.");
 			}
 		} else if (e.key === "Backspace") {
 			if (tagInputRef.current.textContent === "" && tags.length > 0) {
@@ -172,10 +168,10 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 					console.log("editLast in: ", editLast);
 					let lastTag = tags[tags.length - 1];
 					await setTags((tags) => tags.filter((item) => lastTag !== item));
-					setTempData({
-						...tempData,
+					setTempData((prevState) => ({
+						...prevState,
 						tag: tags,
-					});
+					}));
 					tagInputRef.current.textContent = lastTag;
 
 					//將輸入鍵移至尾端
@@ -186,6 +182,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 					sel.removeAllRanges();
 					sel.addRange(range);
 					tagInputRef.current.focus();
+					//將輸入鍵移至尾端
 
 					setEditLast(false);
 				} else {
@@ -193,7 +190,6 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 				}
 			}
 		}
-		console.log("editLast out: ", editLast);
 	};
 
 	console.log("typing: ", typing);
@@ -201,10 +197,10 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	const removeTag = async (index) => {
 		await setTags(tags.filter((_, i) => i !== index));
 		console.log("remove tag: ", tags);
-		setTempData({
-			...tempData,
+		setTempData((prevState) => ({
+			...prevState,
 			tag: tags,
-		});
+		}));
 	};
 
 	return (
