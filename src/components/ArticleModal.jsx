@@ -154,10 +154,6 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 			console.log(tagText);
 			if (tagText !== "" && !tags.includes(tagText)) {
 				await setTags((prevState) => [...prevState, tagText]);
-				await setTempData((prevState) => ({
-					...prevState,
-					tag: tags,
-				}));
 				tagInputRef.current.textContent = "";
 			} else {
 				alert("Your tag is empty or already existed.");
@@ -168,10 +164,6 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 					console.log("editLast in: ", editLast);
 					let lastTag = tags[tags.length - 1];
 					await setTags((tags) => tags.filter((item) => lastTag !== item));
-					setTempData((prevState) => ({
-						...prevState,
-						tag: tags,
-					}));
 					tagInputRef.current.textContent = lastTag;
 
 					//將輸入鍵移至尾端
@@ -197,11 +189,14 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	const removeTag = async (index) => {
 		await setTags(tags.filter((_, i) => i !== index));
 		console.log("remove tag: ", tags);
-		setTempData((prevState) => ({
+	};
+
+    useEffect(() => {
+        setTempData((prevState) => ({
 			...prevState,
 			tag: tags,
 		}));
-	};
+    }, [tags])
 
 	return (
 		<>
