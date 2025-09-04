@@ -45,10 +45,16 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 				tag: [],
 			});
 			setDate(new Date(new Date().setDate(new Date().getDate()))); //將當前時間多加一天
+            setTags([]);
 		} else if (type === "edit") {
 			setTempData(tempArticle);
 			setDate(new Date(tempArticle.create_at));
             setTags(tempArticle.tag);
+            if (tempArticle.tag) {
+				setTags(tempArticle.tag);
+			} else {
+				setTags([]);
+			}
 		}
 	}, [type, tempArticle]);
 	console.log("tempData: ", tempData);
@@ -147,13 +153,13 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 	//addTag
 	console.log("tags: ", tags);
 	console.log("tempDataTag: ", tempData.tag);
-	const handleTag = async (e) => {
+	const handleTag = (e) => {
 		e.preventDefault();
 		if (e.key === "Enter") {
 			let tagText = tagInputRef.current.textContent;
 			console.log(tagText);
 			if (tagText !== "" && !tags.includes(tagText)) {
-				await setTags((prevState) => [...prevState, tagText]);
+				setTags((prevState) => [...prevState, tagText]);
 				tagInputRef.current.textContent = "";
 			} else {
 				alert("Your tag is empty or already existed.");
@@ -163,7 +169,7 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 				if (editLast) {
 					console.log("editLast in: ", editLast);
 					let lastTag = tags[tags.length - 1];
-					await setTags((tags) => tags.filter((item) => lastTag !== item));
+					setTags((tags) => tags.filter((item) => lastTag !== item));
 					tagInputRef.current.textContent = lastTag;
 
 					//將輸入鍵移至尾端
@@ -186,8 +192,8 @@ const ArticleModal = ({ closeModal, type, tempArticle, getArticles}) => {
 
 	console.log("typing: ", typing);
 
-	const removeTag = async (index) => {
-		await setTags(tags.filter((_, i) => i !== index));
+	const removeTag = (index) => {
+		setTags(tags.filter((_, i) => i !== index));
 		console.log("remove tag: ", tags);
 	};
 
